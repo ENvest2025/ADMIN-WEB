@@ -24,7 +24,11 @@ dist-ssr
 *.sw?
 
 .config/
-!.env
+
+# Local env files (keep .env.example tracked as the template)
+.env
+.env.local
+.env.*.local
 
 # cache
 tivesmynameAppDataRoamingnpm-cache
