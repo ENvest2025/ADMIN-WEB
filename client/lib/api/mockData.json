@@ -1,0 +1,85 @@
+{
+  "users": [
+    {
+      "id": "super-admin-1",
+      "email": "admin@envest.com",
+      "password": "password123",
+      "firstName": "Super",
+      "lastName": "Admin",
+      "phone": "+234 800 000 0000",
+      "role": "super_admin",
+      "permissions": {
+        "kyc": ["view", "manage"],
+        "user_management": ["view", "manage"],
+        "transactions": ["view", "manage"],
+        "portfolio": ["view", "manage"],
+        "investment_products": ["view", "manage"]
+      }
+    }
+  ],
+  "kyc_pending": 10,
+  "total_users": 100,
+  "investment_products_count": 7,
+  "recent_transactions_count": 108,
+  "transactions": [
+    {
+      "id": "1",
+      "from": "Martin Stanford",
+      "type": "Withdrawal made",
+      "amount": -40.0,
+      "currency": "NGN",
+      "date": "Yesterday",
+      "status": "completed"
+    },
+    {
+      "id": "2",
+      "from": "Martin Stanford",
+      "type": "Transfer from Chia Ngue..",
+      "amount": 40.0,
+      "currency": "NGN",
+      "date": "Yesterday",
+      "status": "completed"
+    },
+    {
+      "id": "3",
+      "from": "Martin Stanford",
+      "type": "Dangote stock",
+      "amount": 40.0,
+      "currency": "NGN",
+      "date": "25-Jul-2025",
+      "status": "completed"
+    }
+  ],
+  "kyc_requests": [
+    { "id": "00001", "name": "Cynthia Nguevese", "email": "cynthianguevese@gmail.com", "progress": "Step 1/4", "status": "Approved", "last_updated": "Jan 1, 2025" },
+    { "id": "00002", "name": "Robert Fox", "email": "nevaeh.simmons@example.com", "progress": "Step 4/4", "status": "Pending", "last_updated": "Jan 1, 2025" },
+    { "id": "00003", "name": "Devon Lane", "email": "debbie.baker@example.com", "progress": "Step 3/4", "status": "Approved", "last_updated": "Jan 1, 2025" },
+    { "id": "00004", "name": "Albert Flores", "email": "kenzi.lawson@example.com", "progress": "Step 2/4", "status": "Declined", "last_updated": "Jan 1, 2025" },
+    { "id": "00005", "name": "Floyd Miles", "email": "bill.sanders@example.com", "progress": "Step 4/4", "status": "Approved", "last_updated": "Jan 1, 2025" },
+    { "id": "00006", "name": "Cody Fisher", "email": "sara.cruz@example.com", "progress": "Step 0/4", "status": "Pending", "last_updated": "Jan 1, 2025" },
+    { "id": "00007", "name": "Brooklyn Simmons", "email": "michelle.rivera@example.com", "progress": "Step 1/4", "status": "Approved", "last_updated": "Jan 1, 2025" },
+    { "id": "00008", "name": "Darrell Steward", "email": "felicia.reid@example.com", "progress": "Step 1/4", "status": "Approved", "last_updated": "Jan 1, 2025" },
+    { "id": "00009", "name": "Marvin McKinney", "email": "alma.lawson@example.com", "progress": "Step 1/4", "status": "Approved", "last_updated": "Jan 1, 2025" },
+    { "id": "00010", "name": "Arlene McCoy", "email": "tanya.hill@example.com", "progress": "Step 2/4", "status": "Approved", "last_updated": "Jan 1, 2025" },
+    { "id": "00011", "name": "Guy Hawkins", "email": "guy.hawkins@example.com", "progress": "Step 3/4", "status": "Pending", "last_updated": "Jan 2, 2025" },
+    { "id": "00012", "name": "Jane Cooper", "email": "jane.cooper@example.com", "progress": "Step 4/4", "status": "Approved", "last_updated": "Jan 2, 2025" },
+    { "id": "00013", "name": "Wade Warren", "email": "wade.warren@example.com", "progress": "Step 1/4", "status": "Declined", "last_updated": "Jan 2, 2025" },
+    { "id": "00014", "name": "Esther Howard", "email": "esther.howard@example.com", "progress": "Step 2/4", "status": "Pending", "last_updated": "Jan 2, 2025" },
+    { "id": "00015", "name": "Cameron Williamson", "email": "cameron.williamson@example.com", "progress": "Step 3/4", "status": "Approved", "last_updated": "Jan 2, 2025" },
+    { "id": "00016", "name": "Jerome Bell", "email": "jerome.bell@example.com", "progress": "Step 4/4", "status": "Approved", "last_updated": "Jan 3, 2025" },
+    { "id": "00017", "name": "Courtney Henry", "email": "courtney.henry@example.com", "progress": "Step 1/4", "status": "Pending", "last_updated": "Jan 3, 2025" },
+    { "id": "00018", "name": "Theresa Webb", "email": "theresa.webb@example.com", "progress": "Step 2/4", "status": "Approved", "last_updated": "Jan 3, 2025" },
+    { "id": "00019", "name": "Kathryn Murphy", "email": "kathryn.murphy@example.com", "progress": "Step 3/4", "status": "Declined", "last_updated": "Jan 3, 2025" },
+    { "id": "00020", "name": "Eleanor Pena", "email": "eleanor.pena@example.com", "progress": "Step 4/4", "status": "Approved", "last_updated": "Jan 3, 2025" },
+    { "id": "00021", "name": "James Bond", "email": "james.bond@example.com", "progress": "Step 2/4", "status": "Pending", "last_updated": "Jan 4, 2025" },
+    { "id": "00022", "name": "Mary Johnson", "email": "mary.johnson@example.com", "progress": "Step 3/4", "status": "Approved", "last_updated": "Jan 4, 2025" },
+    { "id": "00023", "name": "John Smith", "email": "john.smith@example.com", "progress": "Step 1/4", "status": "Declined", "last_updated": "Jan 4, 2025" },
+    { "id": "00024", "name": "Patricia Williams", "email": "patricia.williams@example.com", "progress": "Step 4/4", "status": "Pending", "last_updated": "Jan 4, 2025" },
+    { "id": "00025", "name": "Robert Brown", "email": "robert.brown@example.com", "progress": "Step 2/4", "status": "Approved", "last_updated": "Jan 4, 2025" },
+    { "id": "00026", "name": "Michael Jones", "email": "michael.jones@example.com", "progress": "Step 3/4", "status": "Approved", "last_updated": "Jan 5, 2025" },
+    { "id": "00027", "name": "Linda Miller", "email": "linda.miller@example.com", "progress": "Step 1/4", "status": "Pending", "last_updated": "Jan 5, 2025" },
+    { "id": "00028", "name": "William Davis", "email": "william.davis@example.com", "progress": "Step 4/4", "status": "Declined", "last_updated": "Jan 5, 2025" },
+    { "id": "00029", "name": "Elizabeth Garcia", "email": "elizabeth.garcia@example.com", "progress": "Step 2/4", "status": "Approved", "last_updated": "Jan 5, 2025" },
+    { "id": "00030", "name": "Barbara Rodriguez", "email": "barbara.rodriguez@example.com", "progress": "Step 3/4", "status": "Pending", "last_updated": "Jan 5, 2025" }
+  ]
+}
