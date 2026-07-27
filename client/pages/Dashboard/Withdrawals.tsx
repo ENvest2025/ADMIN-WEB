@@ -325,13 +325,13 @@ export default function Withdrawals() {
                                             <div className="text-xs text-slate-400">{w.withdrawal_details?.accountNumber}</div>
                                         </td>
                                         <td className="px-4 py-4 text-sm font-semibold text-slate-800 whitespace-nowrap">{formatAmount(w.currency, w.amount)}</td>
-                                        <td className="px-4 py-4">
+                                        <td className="px-4 py-4 whitespace-nowrap">
                                             {w.status === 0 ? (
-                                                <span className={cn('text-xs font-semibold px-2.5 py-1 rounded-full', STATUS_PILL[w.status])}>
+                                                <span className={cn('inline-block text-xs font-semibold px-2.5 py-1 rounded-full whitespace-nowrap', STATUS_PILL[w.status])}>
                                                     {w.status_message || STATUS_LABELS[w.status]}
                                                 </span>
                                             ) : (
-                                                <span className={cn('text-sm font-semibold', STATUS_PILL[w.status] || 'text-slate-500')}>
+                                                <span className={cn('text-sm font-semibold whitespace-nowrap', STATUS_PILL[w.status] || 'text-slate-500')}>
                                                     {w.status_message || STATUS_LABELS[w.status] || 'Unknown'}
                                                 </span>
                                             )}
