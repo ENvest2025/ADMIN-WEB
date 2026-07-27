@@ -95,7 +95,7 @@ function GeneralSettings() {
             </div>
 
             {/* Time zone & Date format */}
-            <div className="grid grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="space-y-1.5">
                     <label className="text-sm font-medium text-slate-600">Time zone</label>
                     <div className="relative">

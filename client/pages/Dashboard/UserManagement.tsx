@@ -229,7 +229,8 @@ export default function UserManagement() {
 
             {/* Table Card */}
             <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-                <table className="w-full">
+                <div className="overflow-x-auto">
+                <table className="w-full min-w-[900px]">
                     <thead>
                         <tr className="border-b border-slate-100">
                             {['S/N', 'Name', 'Email address', 'ID', 'Phone number', 'Status', 'Last login', ''].map((col) => (
@@ -270,6 +271,7 @@ export default function UserManagement() {
                         )}
                     </tbody>
                 </table>
+                </div>
 
                 {/* Pagination */}
                 <div className="flex items-center justify-between px-5 py-4 border-t border-slate-100">

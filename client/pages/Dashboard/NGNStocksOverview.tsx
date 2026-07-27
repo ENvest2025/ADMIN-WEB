@@ -103,7 +103,7 @@ export default function NGNStocksOverview() {
             </div>
 
             {/* Stats Cards */}
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 {stats.map(({ icon, label, value, isText }) => (
                     <div key={label} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
                         <div className="flex items-center gap-2 mb-2">
@@ -135,7 +135,8 @@ export default function NGNStocksOverview() {
                         </button>
                     </div>
 
-                    <table className="w-full">
+                    <div className="overflow-x-auto">
+                    <table className="w-full min-w-[900px]">
                         <thead>
                             <tr className="border-b border-slate-100 bg-slate-50/50">
                                 {['S/N', 'Company Name', 'Sector', 'Current price', 'Daily change', 'Status', 'Action'].map((col) => (
@@ -198,6 +199,7 @@ export default function NGNStocksOverview() {
                             ))}
                         </tbody>
                     </table>
+                    </div>
 
                     {/* Pagination */}
                     <div className="flex items-center justify-between px-6 py-4 border-t border-slate-100">

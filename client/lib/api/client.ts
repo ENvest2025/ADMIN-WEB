@@ -1,6 +1,8 @@
 import axios, { AxiosError, InternalAxiosRequestConfig, AxiosResponse } from 'axios';
 
-const BASE_URL = 'https://envest.live/qSdb89lP/';
+// API base URL comes from the environment (VITE_API_BASE_URL). Falls back to
+// the production URL so the app still works if the var is unset.
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://envest.live/qSdb89lP/';
 const TOKEN_KEY = 'envest_auth_token';
 const USER_KEY = 'envest_user_session';
 

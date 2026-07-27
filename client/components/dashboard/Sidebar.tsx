@@ -11,7 +11,8 @@ import {
     HelpCircle,
     Settings,
     LogOut,
-    Inbox
+    Inbox,
+    X
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -45,21 +46,39 @@ const menuItems = [
     }
 ];
 
-export function Sidebar() {
+export function Sidebar({ isOpen, onClose }: Readonly<{ isOpen: boolean; onClose: () => void }>) {
     const location = useLocation();
     const navigate = useNavigate();
     const { user, setUser } = useAuthStore();
 
+    const go = (path: string) => {
+        navigate(path);
+        onClose();
+    };
+
     const handleLogout = () => {
         authService.logout();
         setUser(null);
+        onClose();
         navigate('/login');
     };
 
     return (
-        <aside className="w-64 bg-[#0A0E1A] text-slate-400 flex flex-col h-screen fixed left-0 top-0 z-50">
-            <div className="p-6">
+        <aside
+            className={cn(
+                "w-64 bg-[#0A0E1A] text-slate-400 flex flex-col h-screen fixed left-0 top-0 z-50 transition-transform duration-300 ease-in-out lg:translate-x-0",
+                isOpen ? "translate-x-0" : "-translate-x-full"
+            )}
+        >
+            <div className="p-6 flex items-center justify-between">
                 <h1 className="text-2xl font-bold text-yellow-500">EnVest</h1>
+                <button
+                    onClick={onClose}
+                    className="lg:hidden text-slate-400 hover:text-white transition-colors"
+                    aria-label="Close menu"
+                >
+                    <X size={22} />
+                </button>
             </div>
 
             <nav className="flex-1 overflow-y-auto py-4 px-4 space-y-8 scrollbar-hide">
@@ -74,7 +93,7 @@ export function Sidebar() {
                                 return (
                                     <button
                                         key={item.name}
-                                        onClick={() => navigate(item.path)}
+                                        onClick={() => go(item.path)}
                                         className={cn(
                                             "w-full flex items-center justify-between px-3 py-2.5 rounded-xl transition-all duration-200 group text-sm font-medium",
                                             isActive

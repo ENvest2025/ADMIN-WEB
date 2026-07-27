@@ -85,7 +85,7 @@ function BasicInformationStep({ data, setData }: { data: any; setData: (d: any) 
     return (
         <div className="space-y-5">
             <h2 className="text-lg font-bold text-slate-900">Basic Information</h2>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <FormInput label="Company name" placeholder="eg: Access Holdings" value={data.companyName} onChange={(v) => update('companyName', v)} />
                 <FormInput label="Symbol" placeholder="enter symbol eg : ACCESSCORP" value={data.symbol} onChange={(v) => update('symbol', v)} />
             </div>
@@ -101,7 +101,7 @@ function BasicInformationStep({ data, setData }: { data: any; setData: (d: any) 
                     ))}
                 </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <FormInput label="Open Price" placeholder="enter open price" value={data.openPrice} onChange={(v) => update('openPrice', v)} />
                 <div />
                 <FormInput label="Today's high" placeholder="enter today's high" value={data.todayHigh} onChange={(v) => update('todayHigh', v)} />
@@ -137,7 +137,7 @@ function FinancialsStep({ data, setData }: { data: any; setData: (d: any) => voi
     return (
         <div className="space-y-5">
             <h2 className="text-lg font-bold text-slate-900">Financials</h2>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <FormInput label="Open Price" placeholder="enter open price" value={data.openPrice} onChange={(v) => update('openPrice', v)} />
                 <FormInput label="Today's Price" placeholder="enter today's  price" value={data.todayPrice} onChange={(v) => update('todayPrice', v)} />
                 <FormInput label="Today's high price" placeholder="enter high price" value={data.todayHighPrice} onChange={(v) => update('todayHighPrice', v)} />
@@ -147,7 +147,7 @@ function FinancialsStep({ data, setData }: { data: any; setData: (d: any) => voi
                 <FormInput label="Div/yield" placeholder="enter high price" value={data.divYield} onChange={(v) => update('divYield', v)} />
                 <FormInput label="Volume" placeholder="enter low price" value={data.volume} onChange={(v) => update('volume', v)} />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <FormInput label="Average Volume" placeholder="enter high price" value={data.avgVolume} onChange={(v) => update('avgVolume', v)} />
             </div>
         </div>
@@ -171,7 +171,7 @@ function NewsStep({ data, setData }: { data: any; setData: (d: any) => void }) {
                     ))}
                 </select>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <FormInput label="Date" placeholder="Enter date" type="date" value={data.date} onChange={(v) => update('date', v)} />
                 <FormInput label="Time" placeholder="00:00 AM" value={data.time} onChange={(v) => update('time', v)} />
             </div>

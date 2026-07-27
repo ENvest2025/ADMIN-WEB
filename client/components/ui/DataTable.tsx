@@ -28,13 +28,13 @@ export function DataTable<T extends { id: string | number }>({
 }: DataTableProps<T>) {
     return (
         <div className="rounded-3xl border border-slate-100 bg-white overflow-hidden shadow-sm">
-            <Table>
+            <Table className="min-w-[820px]">
                 <TableHeader>
                     <TableRow className="bg-slate-50/50 hover:bg-slate-50/50 border-b border-slate-100">
                         {columns.map((column, index) => (
                             <TableHead
                                 key={index}
-                                className={cn("text-slate-500 font-medium py-4", column.className)}
+                                className={cn("text-slate-500 font-medium py-4 whitespace-nowrap", column.className)}
                             >
                                 {column.header}
                             </TableHead>
@@ -51,7 +51,7 @@ export function DataTable<T extends { id: string | number }>({
                             {columns.map((column, colIndex) => (
                                 <TableCell
                                     key={colIndex}
-                                    className={cn("py-4 text-slate-900 font-medium", column.className)}
+                                    className={cn("py-4 text-slate-900 font-medium whitespace-nowrap", column.className)}
                                 >
                                     {column.cell
                                         ? column.cell(item)

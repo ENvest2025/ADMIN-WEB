@@ -78,8 +78,8 @@ export function RecentKYC() {
     ];
 
     return (
-        <div className="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm">
-            <div className="flex items-center justify-between mb-8">
+        <div className="bg-white rounded-3xl p-4 sm:p-6 lg:p-8 border border-slate-100 shadow-sm">
+            <div className="flex items-center justify-between mb-6 sm:mb-8">
                 <h3 className="text-xl font-bold text-slate-900">KYC Management</h3>
                 <button
                     onClick={() => navigate('/dashboard/kyc')}

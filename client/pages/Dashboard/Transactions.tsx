@@ -144,7 +144,7 @@ export default function Transactions() {
     return (
         <div className="space-y-6">
             {/* Stats */}
-            <div className="flex gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
                 <StatCard icon={TrendingUp} label="Inflow" value={`₦${stats.inflow.toLocaleString()}`} accent />
                 <StatCard icon={TrendingDown} label="Outflow" value={`₦${stats.outflow.toLocaleString()}`} />
                 <StatCard icon={ArrowLeftRight} label="Net Balance (Inflow – Outflow)" value={`₦${stats.balance.toLocaleString()}`} />
@@ -202,7 +202,8 @@ export default function Transactions() {
                     </button>
                 </div>
 
-                <table className="w-full">
+                <div className="overflow-x-auto">
+                <table className="w-full min-w-[900px]">
                     <thead>
                         <tr className="border-b border-slate-50">
                             {['S/N', 'Transaction ID', 'User Name', 'Channel', 'Transaction type', 'Amount', 'Status', 'Date request', 'Action'].map(col => (
@@ -260,6 +261,7 @@ export default function Transactions() {
                         ))}
                     </tbody>
                 </table>
+                </div>
 
                 {/* Pagination */}
                 <div className="flex items-center justify-between px-5 py-4 border-t border-slate-100">

@@ -233,7 +233,7 @@ export default function InvestmentBreakdown() {
             </div>
 
             {/* Stats Cards */}
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 {[
                     { icon: '🟡', label: 'NGN Stock', value: '₦281,780.00' },
                     { icon: '🟢', label: 'Total Stocks', value: '2' },

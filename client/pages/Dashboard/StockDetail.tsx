@@ -60,7 +60,7 @@ function BasicInfoTab() {
     const { basicInfo } = MOCK_STOCK;
     return (
         <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <InfoRow label="Company name" value={basicInfo.companyName} />
                 <InfoRow label="Symbol" value={basicInfo.symbol} />
                 <InfoRow label="Market type" value={basicInfo.marketType} />
@@ -92,7 +92,7 @@ function FinancialsTab() {
     const { financials } = MOCK_STOCK;
     return (
         <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <InfoRow label="Open Price" value={financials.openPrice} />
                 <InfoRow label="Today's Price" value={financials.todayPrice} />
                 <InfoRow label="Today's high price" value={financials.todayHighPrice} />
@@ -102,7 +102,7 @@ function FinancialsTab() {
                 <InfoRow label="Div/yield" value={financials.divYield} />
                 <InfoRow label="Volume" value={financials.volume} />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <InfoRow label="Average Volume" value={financials.avgVolume} />
             </div>
         </div>
@@ -154,7 +154,8 @@ function NewsTab({ onViewArticle }: { onViewArticle: (id: string) => void }) {
 function BuySellTab() {
     return (
         <div>
-            <table className="w-full">
+            <div className="overflow-x-auto">
+            <table className="w-full min-w-[700px]">
                 <thead>
                     <tr className="border-b border-slate-100">
                         {['Units', 'Buy price', 'Sell price', 'Units'].map((col, i) => (
@@ -175,6 +176,7 @@ function BuySellTab() {
                     ))}
                 </tbody>
             </table>
+            </div>
         </div>
     );
 }
@@ -203,7 +205,7 @@ export default function StockDetail() {
                     <span className="text-slate-900 font-semibold">Access Holdings</span>
                 </div>
                 <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-8">
-                    <div className="grid grid-cols-4 gap-6 mb-6 pb-6 border-b border-slate-100">
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-6 pb-6 border-b border-slate-100">
                         {[
                             { label: 'Published by', value: 'George Dean' },
                             { label: 'Category', value: 'Academic' },

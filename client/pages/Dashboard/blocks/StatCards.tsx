@@ -14,14 +14,14 @@ export function StatCards({ data }: StatCardsProps) {
     ];
 
     return (
-        <div className="grid grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6">
             {stats.map((stat) => (
                 <Card
                     key={stat.label}
-                    className={`p-6 border-slate-100 shadow-sm rounded-2xl flex flex-col justify-between h-32 ${stat.className || 'bg-white text-slate-900'}`}
+                    className={`p-5 sm:p-6 border-slate-100 shadow-sm rounded-2xl flex flex-col justify-between gap-2 min-h-32 ${stat.className || 'bg-white text-slate-900'}`}
                 >
                     <span className="text-sm font-medium opacity-70">{stat.label}</span>
-                    <span className="text-4xl font-bold">{stat.value}</span>
+                    <span className="text-3xl sm:text-4xl font-bold">{stat.value}</span>
                 </Card>
             ))}
         </div>

@@ -274,7 +274,7 @@ function Investments({ breakdown }: InvestmentsProps) {
             {/* Overview stats */}
             <div className="bg-white border border-slate-100 rounded-2xl p-5">
                 <h3 className="text-sm font-bold text-slate-700 mb-4">Overview</h3>
-                <div className="grid grid-cols-4 divide-x divide-slate-100">
+                <div className="grid grid-cols-2 sm:grid-cols-4 sm:divide-x divide-slate-100 gap-y-4">
                     {[
                         { label: 'Total Portfolio Value', value: formatCurrency(totalCurrentValue, breakdown[0]?.currency) },
                         { label: 'Active investments', value: breakdown.filter(i => i.status === 'active').length },
@@ -294,7 +294,8 @@ function Investments({ breakdown }: InvestmentsProps) {
                 <div className="px-5 py-4 border-b border-slate-100">
                     <h3 className="text-sm font-bold text-slate-700">Investment Breakdown</h3>
                 </div>
-                <table className="w-full">
+                <div className="overflow-x-auto">
+                <table className="w-full min-w-[800px]">
                     <thead>
                         <tr className="border-b border-slate-50">
                             {['S/N', 'Investment product', 'Amount Invested', 'Current Value', 'ROI', 'Maturity date'].map(col => (
@@ -321,6 +322,7 @@ function Investments({ breakdown }: InvestmentsProps) {
                         )}
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     );

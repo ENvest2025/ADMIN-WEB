@@ -108,7 +108,7 @@ export default function PortfolioManagement() {
             <h1 className="text-xl font-bold text-slate-900">Portfolio management</h1>
 
             {/* Stats */}
-            <div className="flex gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
                 <StatCard icon={TrendingUp} label="Total portfolio value" value={totalPortValueStr} accent loading={loadingStats} />
                 <StatCard icon={Users} label="Number of active portfolios" value={stats?.number_active_port.toString() || '0'} loading={loadingStats} />
                 <StatCard icon={BarChart3} label="Total returns generated" value="N/A" loading={loadingStats} />
@@ -116,7 +116,7 @@ export default function PortfolioManagement() {
             </div>
 
             {/* Two Tables Row */}
-            <div className="grid grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
                 {/* By Volume */}
                 <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
                     <div className="px-5 py-4 border-b border-slate-50">
@@ -214,7 +214,8 @@ export default function PortfolioManagement() {
                         </select>
                     </div>
                 </div>
-                <table className="w-full">
+                <div className="overflow-x-auto">
+                <table className="w-full min-w-[900px]">
                     <thead>
                         <tr className="border-b border-slate-50">
                             {['S/N', 'User ID', 'User Name', 'Total investments', 'Val (NGN)', 'Val (USD)', 'ROI Avg', 'Action'].map(col => (
@@ -258,6 +259,7 @@ export default function PortfolioManagement() {
                         )}
                     </tbody>
                 </table>
+                </div>
 
                 {/* Pagination */}
                 <div className="flex items-center justify-between px-5 py-4 border-t border-slate-100">

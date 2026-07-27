@@ -95,7 +95,7 @@ export default function PortfolioOverview() {
             </div>
 
             {/* Dark Stats Banner */}
-            <div className="bg-[#0A0E1A] rounded-2xl px-6 py-5 grid grid-cols-4 gap-4">
+            <div className="bg-[#0A0E1A] rounded-2xl px-6 py-5 grid grid-cols-2 lg:grid-cols-4 gap-4">
                 {[
                     { label: 'Portfolio value', value: formatCurrency(currentPortfolioValue, baseCurrency) },
                     { label: 'Total invested amount', value: formatCurrency(totalInvested, baseCurrency) },
