@@ -187,7 +187,7 @@ export default function PortfolioOverview() {
                     <h2 className="text-base font-bold text-slate-800">Investment Breakdown</h2>
                 </div>
                 <div className="overflow-x-auto">
-                    <table className="w-full min-w-[800px]">
+                    <table className="w-full min-w-[800px] [&_td]:whitespace-nowrap [&_th]:whitespace-nowrap">
                         <thead>
                             <tr className="border-b border-slate-50">
                                 {['S/N', 'Product name', 'Amount invested', 'Current value', 'ROI', 'Maturity date', 'Status', 'Action'].map(col => (

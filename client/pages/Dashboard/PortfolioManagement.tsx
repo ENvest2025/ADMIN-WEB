@@ -123,7 +123,7 @@ export default function PortfolioManagement() {
                         <h2 className="text-sm font-bold text-slate-800">Investment products by Volume</h2>
                     </div>
                     <div className="max-h-[300px] overflow-auto">
-                        <table className="w-full">
+                        <table className="w-full [&_td]:whitespace-nowrap [&_th]:whitespace-nowrap">
                             <thead className="sticky top-0 bg-white">
                                 <tr className="border-b border-slate-50">
                                     <th className="px-5 py-3 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">Investment products</th>
@@ -157,7 +157,7 @@ export default function PortfolioManagement() {
                         <h2 className="text-sm font-bold text-slate-800">Investment products by Performance</h2>
                     </div>
                     <div className="max-h-[300px] overflow-auto">
-                        <table className="w-full">
+                        <table className="w-full [&_td]:whitespace-nowrap [&_th]:whitespace-nowrap">
                             <thead className="sticky top-0 bg-white">
                                 <tr className="border-b border-slate-50">
                                     <th className="px-5 py-3 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">Investment products</th>
@@ -215,7 +215,7 @@ export default function PortfolioManagement() {
                     </div>
                 </div>
                 <div className="overflow-x-auto">
-                <table className="w-full min-w-[900px]">
+                <table className="w-full min-w-[900px] [&_td]:whitespace-nowrap [&_th]:whitespace-nowrap">
                     <thead>
                         <tr className="border-b border-slate-50">
                             {['S/N', 'User ID', 'User Name', 'Total investments', 'Val (NGN)', 'Val (USD)', 'ROI Avg', 'Action'].map(col => (

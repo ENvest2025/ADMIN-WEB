@@ -230,7 +230,7 @@ export default function UserManagement() {
             {/* Table Card */}
             <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
                 <div className="overflow-x-auto">
-                <table className="w-full min-w-[900px]">
+                <table className="w-full min-w-[900px] [&_td]:whitespace-nowrap [&_th]:whitespace-nowrap">
                     <thead>
                         <tr className="border-b border-slate-100">
                             {['S/N', 'Name', 'Email address', 'ID', 'Phone number', 'Status', 'Last login', ''].map((col) => (

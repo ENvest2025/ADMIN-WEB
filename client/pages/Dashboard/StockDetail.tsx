@@ -155,7 +155,7 @@ function BuySellTab() {
     return (
         <div>
             <div className="overflow-x-auto">
-            <table className="w-full min-w-[700px]">
+            <table className="w-full min-w-[700px] [&_td]:whitespace-nowrap [&_th]:whitespace-nowrap">
                 <thead>
                     <tr className="border-b border-slate-100">
                         {['Units', 'Buy price', 'Sell price', 'Units'].map((col, i) => (

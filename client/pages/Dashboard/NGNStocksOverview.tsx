@@ -136,7 +136,7 @@ export default function NGNStocksOverview() {
                     </div>
 
                     <div className="overflow-x-auto">
-                    <table className="w-full min-w-[900px]">
+                    <table className="w-full min-w-[900px] [&_td]:whitespace-nowrap [&_th]:whitespace-nowrap">
                         <thead>
                             <tr className="border-b border-slate-100 bg-slate-50/50">
                                 {['S/N', 'Company Name', 'Sector', 'Current price', 'Daily change', 'Status', 'Action'].map((col) => (

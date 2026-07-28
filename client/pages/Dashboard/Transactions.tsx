@@ -203,7 +203,7 @@ export default function Transactions() {
                 </div>
 
                 <div className="overflow-x-auto">
-                <table className="w-full min-w-[900px]">
+                <table className="w-full min-w-[900px] [&_td]:whitespace-nowrap [&_th]:whitespace-nowrap">
                     <thead>
                         <tr className="border-b border-slate-50">
                             {['S/N', 'Transaction ID', 'User Name', 'Channel', 'Transaction type', 'Amount', 'Status', 'Date request', 'Action'].map(col => (

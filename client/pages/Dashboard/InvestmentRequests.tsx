@@ -481,7 +481,7 @@ export default function InvestmentRequests() {
                     {/* Desktop table (xl+) — only shown when there's real horizontal room */}
                     <Card className="border-slate-100 shadow-sm overflow-hidden hidden xl:block">
                         <div className="overflow-x-auto">
-                            <Table className="min-w-[1100px]">
+                            <Table className="min-w-[1100px] [&_td]:whitespace-nowrap [&_th]:whitespace-nowrap">
                                 <TableHeader>
                                     <TableRow className="bg-slate-50/60 hover:bg-slate-50/60">
                                         <TableHead className="font-semibold text-slate-600 whitespace-nowrap">Client</TableHead>

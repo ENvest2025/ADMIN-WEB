@@ -295,7 +295,7 @@ function Investments({ breakdown }: InvestmentsProps) {
                     <h3 className="text-sm font-bold text-slate-700">Investment Breakdown</h3>
                 </div>
                 <div className="overflow-x-auto">
-                <table className="w-full min-w-[800px]">
+                <table className="w-full min-w-[800px] [&_td]:whitespace-nowrap [&_th]:whitespace-nowrap">
                     <thead>
                         <tr className="border-b border-slate-50">
                             {['S/N', 'Investment product', 'Amount Invested', 'Current Value', 'ROI', 'Maturity date'].map(col => (
