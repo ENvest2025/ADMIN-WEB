@@ -43,8 +43,9 @@ export const authService = {
                     // Add other fields as necessary or leave undefined if not provided by API
                 };
 
-                // Save user session (token is already handled by interceptor)
-                sessionStorage.setItem(STORAGE_KEY, JSON.stringify(user));
+                // Save user session (token is already handled by interceptor).
+                // localStorage so details persist across reloads/restarts like the token.
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
 
                 return user;
             } else {
@@ -100,12 +101,12 @@ export const authService = {
     },
 
     getCurrentUser: () => {
-        const data = sessionStorage.getItem(STORAGE_KEY);
+        const data = localStorage.getItem(STORAGE_KEY);
         return data ? JSON.parse(data) : null;
     },
 
     logout: () => {
-        sessionStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem(STORAGE_KEY);
         localStorage.removeItem('envest_auth_token'); // Clear token on logout
     }
 };

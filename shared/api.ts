@@ -222,3 +222,113 @@ export interface UpdateWithdrawalStatusPayload {
     tnxId: string;
     status: WithdrawalStatusAction | number;
 }
+
+// ─── Investment Products (getAllProducts) ─────────────────────────────────────
+export interface ProductStock {
+    product_code: string;
+    product_name: string;
+    short_name: string;
+    image: string;
+    investment_focus: string;
+}
+
+export interface ProductNote {
+    product_code: string;
+    product_name: string;
+    short_name: string;
+    category: string;
+    target_audience: string;
+    investment_focus: string;
+    benefits: string;
+    risk_level: string;
+    maturity_period: string;
+    min_investment: string;
+    currency_symbol: string;
+    description: string;
+    image: string;
+}
+
+export interface GetAllProductsResponse {
+    code: number;
+    status: boolean;
+    message: string;
+    data: {
+        all: Record<string, unknown>;
+        stocks: ProductStock[];
+        investment_notes: ProductNote[];
+    };
+}
+
+// ─── Investment Notes (inv-notes CRUD) ────────────────────────────────────────
+// Slim record returned by the inv-notes list endpoint.
+export interface NoteListItem {
+    id: number;
+    product_name: string;
+    investment_focus: string;
+    short_name: string;
+}
+
+// Full record returned by inv-notes-single (keyed by `id`).
+export interface InvestmentNoteModel {
+    id: number;
+    product_code: string;
+    product_name: string;
+    short_name?: string;
+    category: string;
+    target_audience: string;
+    investment_focus: string;
+    benefits: string;
+    risk_level: string;
+    maturity_period: string;
+    min_investment: string;
+    currency_symbol: string;
+    description: string;
+    status: string;
+    semi_roi: string;
+    annual_roi: string;
+    semi_roi_days: string;
+    annual_roi_days: string;
+    rollover?: number;
+    created_at?: string;
+    image?: string;
+}
+
+// inv-notes (GET) — returns a flat array of slim notes.
+export interface FetchAllNotesResponse {
+    code: number;
+    status: boolean;
+    message: string;
+    data: NoteListItem[];
+}
+
+// inv-notes-single (POST { note_id }) — full note (object, sometimes array-wrapped).
+export interface SingleNoteResponse {
+    code: number;
+    status: boolean;
+    message: string;
+    data: InvestmentNoteModel | InvestmentNoteModel[];
+}
+
+export interface CreateNotePayload {
+    product_code: string;
+    product_name: string;
+    category: string;
+    target_audience: string;
+    investment_focus: string;
+    benefits: string;
+    risk_level: string;
+    maturity_period: string;
+    min_investment: string;
+    currency_symbol: string;
+    description: string;
+    status: string;
+    semi_roi: string;
+    annual_roi: string;
+    semi_roi_days: string;
+    annual_roi_days: string;
+}
+
+export interface UpdateNotePayload extends CreateNotePayload {
+    note_id: number;
+    rollover?: number;
+}

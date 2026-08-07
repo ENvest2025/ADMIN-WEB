@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, Filter, MoreVertical, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, Filter, MoreVertical, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { dashboardService, Client } from '@/lib/api/dashboardService';
 import { toast } from 'sonner';
@@ -14,11 +14,12 @@ type ModalType = 'suspend' | 'unsuspend' | 'delete' | null;
 interface ConfirmModalProps {
     type: ModalType;
     userName: string;
+    loading?: boolean;
     onConfirm: () => void;
     onCancel: () => void;
 }
 
-function ConfirmModal({ type, userName, onConfirm, onCancel }: ConfirmModalProps) {
+function ConfirmModal({ type, userName, loading, onConfirm, onCancel }: ConfirmModalProps) {
     const config = {
         suspend: {
             title: 'Suspend user?',
@@ -51,15 +52,18 @@ function ConfirmModal({ type, userName, onConfirm, onCancel }: ConfirmModalProps
                 <div className="flex gap-3">
                     <button
                         onClick={onCancel}
-                        className="flex-1 py-2.5 border border-slate-200 rounded-xl text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors"
+                        disabled={loading}
+                        className="flex-1 py-2.5 border border-slate-200 rounded-xl text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors disabled:opacity-50"
                     >
                         Cancel
                     </button>
                     <button
                         onClick={onConfirm}
-                        className="flex-1 py-2.5 bg-[#B8860B] text-white rounded-xl text-sm font-medium hover:bg-[#9a7009] transition-colors"
+                        disabled={loading}
+                        className="flex-1 py-2.5 bg-[#B8860B] text-white rounded-xl text-sm font-medium hover:bg-[#9a7009] transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
                     >
-                        {confirmText}
+                        {loading && <Loader2 size={14} className="animate-spin" />}
+                        {loading ? 'Working...' : confirmText}
                     </button>
                 </div>
             </div>
@@ -140,6 +144,7 @@ export default function UserManagement() {
     const [totalPages, setTotalPages] = useState(0);
     const [totalUsers, setTotalUsers] = useState(0);
     const [modal, setModal] = useState<{ type: ModalType; user: Client | null }>({ type: null, user: null });
+    const [submitting, setSubmitting] = useState(false);
 
     const fetchUsers = async (page: number) => {
         setLoading(true);
@@ -179,11 +184,36 @@ export default function UserManagement() {
         }
     };
 
-    const handleConfirm = () => {
-        if (!modal.user) return;
-        // API call to suspend/delete would go here
-        toast.info(`Action ${modal.type} triggered for ${modal.user.name}`);
-        setModal({ type: null, user: null });
+    const handleConfirm = async () => {
+        if (!modal.user || !modal.type) return;
+        const { type, user } = modal;
+
+        // Delete has no backend endpoint yet — surface that instead of pretending.
+        if (type === 'delete') {
+            toast.info('Deleting accounts is not available yet');
+            setModal({ type: null, user: null });
+            return;
+        }
+
+        // Suspend and un-suspend both hit the same toggle endpoint.
+        setSubmitting(true);
+        try {
+            const res = await dashboardService.toggleSuspend({ id: user.clientID });
+            if (res.status) {
+                toast.success(
+                    res.message || `User ${type === 'suspend' ? 'suspended' : 'un-suspended'}`
+                );
+                fetchUsers(currentPage);
+            } else {
+                toast.error(res.message || 'Action failed');
+            }
+        } catch (err: any) {
+            console.error('toggleSuspend error:', err);
+            toast.error(err?.response?.data?.message || 'Action failed');
+        } finally {
+            setSubmitting(false);
+            setModal({ type: null, user: null });
+        }
     };
 
     // Simple pagination range
@@ -327,8 +357,9 @@ export default function UserManagement() {
                 <ConfirmModal
                     type={modal.type}
                     userName={modal.user.name}
+                    loading={submitting}
                     onConfirm={handleConfirm}
-                    onCancel={() => setModal({ type: null, user: null })}
+                    onCancel={() => !submitting && setModal({ type: null, user: null })}
                 />
             )}
         </div>

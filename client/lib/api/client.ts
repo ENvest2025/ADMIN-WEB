@@ -53,15 +53,16 @@ instance.interceptors.response.use(
         return responseData;
     },
     (error: AxiosError) => {
-        // Global 401 handler: session expired or invalid token.
-        // Clear every trace of the session and force the user back to login.
-        if (error.response && error.response.status === 401) {
+        // Global auth handler: 401 (unauthenticated) or 403 (forbidden) means the
+        // session is no longer valid. Clear every trace of it and force re-login.
+        const status = error.response?.status;
+        if (status === 401 || status === 403) {
             localStorage.removeItem(TOKEN_KEY);
             localStorage.removeItem(USER_KEY);
             sessionStorage.removeItem(USER_KEY);
 
             // Hard redirect (resets all in-memory app/store state). Guard against
-            // a redirect loop if a request on the login page itself 401s.
+            // a redirect loop if a request on the login page itself fails.
             if (typeof window !== 'undefined' && window.location.pathname !== '/login') {
                 window.location.replace('/login');
             }
@@ -76,13 +77,17 @@ export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 export const apiClient = async <T = any>(
     method: HttpMethod,
     endpoint: string,
-    payload?: any
+    payload?: any,
+    baseURL?: string
 ): Promise<T> => {
     try {
         const response = await instance.request<T>({
             method,
             url: endpoint,
             data: payload,
+            // Allow a per-request base override (e.g. the /api/v1 host that
+            // serves getAllProducts, which lives outside the admin base).
+            ...(baseURL ? { baseURL } : {}),
         });
         return response as T;
     } catch (error) {

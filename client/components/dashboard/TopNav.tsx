@@ -1,9 +1,25 @@
+import { useState } from 'react';
 import { Search, Bell, Home, ChevronRight, Menu } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
+import { useAuthStore } from '@/stores/authStore';
+
+// Stable "random" hue derived from the string, so a user's colour never changes.
+const hueFromString = (s: string) =>
+    [...s].reduce((acc, c) => acc + c.charCodeAt(0), 0) % 360;
 
 export function TopNav({ onMenuClick }: Readonly<{ onMenuClick: () => void }>) {
     const location = useLocation();
     const pathnames = location.pathname.split('/').filter((x) => x);
+    const { user } = useAuthStore();
+    const [imgError, setImgError] = useState(false);
+
+    const displayName = [user?.firstName, user?.lastName].filter(Boolean).join(' ').trim();
+    const avatarSource = displayName || user?.email || '';
+    const avatarInitial = (avatarSource.trim()[0] || '?').toUpperCase();
+    const avatarBg = `hsl(${hueFromString(avatarSource)}, 60%, 45%)`;
+    // Try the admin's image first; fall back to the coloured initial if it
+    // can't load (bare default like "user.png", 404, etc.).
+    const showAvatarImg = !!user?.image && !imgError;
 
     return (
         <header className="h-16 bg-white border-b border-slate-100 flex items-center justify-between gap-3 px-4 sm:px-6 lg:px-8 sticky top-0 z-40 backdrop-blur-md bg-white/80">
@@ -53,12 +69,21 @@ export function TopNav({ onMenuClick }: Readonly<{ onMenuClick: () => void }>) {
                     <span className="absolute top-2 right-2 w-2 h-2 bg-yellow-400 border-2 border-white rounded-full"></span>
                 </button>
 
-                <div className="w-8 h-8 rounded-full overflow-hidden border border-slate-200 cursor-pointer hover:border-yellow-400 transition-colors shrink-0">
-                    <img
-                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop"
-                        alt="User"
-                        className="w-full h-full object-cover"
-                    />
+                <div
+                    className="w-8 h-8 rounded-full flex items-center justify-center overflow-hidden text-white text-sm font-bold cursor-pointer shrink-0 ring-1 ring-black/5 select-none"
+                    style={{ backgroundColor: avatarBg }}
+                    title={displayName || user?.email || 'Account'}
+                >
+                    {showAvatarImg ? (
+                        <img
+                            src={user!.image}
+                            alt={displayName || 'Admin'}
+                            className="w-full h-full object-cover"
+                            onError={() => setImgError(true)}
+                        />
+                    ) : (
+                        avatarInitial
+                    )}
                 </div>
             </div>
         </header>

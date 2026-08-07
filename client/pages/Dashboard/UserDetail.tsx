@@ -328,6 +328,22 @@ function Investments({ breakdown }: InvestmentsProps) {
     );
 }
 
+// User avatar: shows the uploaded image when present, else falls back to the
+// name initial. A bare directory URL (no filename) or a load error → initial.
+function Avatar({ url, name }: Readonly<{ url?: string; name: string }>) {
+    const [err, setErr] = useState(false);
+    const showImg = !!url && !url.endsWith('/') && !err;
+    return (
+        <div className="w-20 h-20 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-3 ring-4 ring-slate-50 text-slate-400 text-2xl font-bold overflow-hidden">
+            {showImg ? (
+                <img src={url} alt={name} className="w-full h-full object-cover" onError={() => setErr(true)} />
+            ) : (
+                name.charAt(0)
+            )}
+        </div>
+    );
+}
+
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function UserDetail() {
     const navigate = useNavigate();
@@ -444,9 +460,7 @@ export default function UserDetail() {
                 {/* Left: User Card */}
                 <div className="w-64 shrink-0 space-y-4">
                     <div className="bg-white border border-slate-100 rounded-2xl p-6 text-center shadow-sm">
-                        <div className="w-20 h-20 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-3 ring-4 ring-slate-50 text-slate-400 text-2xl font-bold">
-                            {userData.basic_info.full_name.charAt(0)}
-                        </div>
+                        <Avatar url={userData.basic_info.userImage} name={userData.basic_info.full_name} />
                         <h2 className="text-sm font-bold text-slate-900">{userData.basic_info.full_name}</h2>
                         <p className="text-xs text-slate-400 mt-0.5 font-mono">{userData.basic_info.clientID}</p>
 

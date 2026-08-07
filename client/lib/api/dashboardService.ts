@@ -144,6 +144,7 @@ export interface ClientBasicInfo {
     date_joined: string;
     last_login: string;
     account_status: string;
+    userImage?: string;
 }
 
 export interface ClientIdentityVerification {
@@ -225,6 +226,17 @@ export interface KycListResponse {
         users: KycUser[];
         pagination: Pagination;
     };
+}
+
+// Suspend / Un-suspend (toggle) a user by clientID
+export interface ToggleSuspendPayload {
+    id: string;
+}
+
+export interface ToggleSuspendResponse {
+    code: number;
+    status: boolean;
+    message: string;
 }
 
 // KYC Approve / Decline Types
@@ -405,6 +417,17 @@ export const dashboardService = {
             return response;
         } catch (error) {
             console.error('Error fetching single client:', error);
+            throw error;
+        }
+    },
+
+    // Toggles a user's suspended state (same endpoint for suspend + un-suspend).
+    toggleSuspend: async (payload: ToggleSuspendPayload) => {
+        try {
+            const response = await apiClient<ToggleSuspendResponse>('POST', 'toggleSuspend', payload);
+            return response;
+        } catch (error) {
+            console.error('Error toggling user suspension:', error);
             throw error;
         }
     },

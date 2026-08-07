@@ -37,8 +37,11 @@ const statusColor: Record<StockStatus, string> = {
     Suspended: 'text-orange-400',
 };
 
-// Map product id to display label
+// Map product code (from getAllProducts) to display label.
 const PRODUCT_LABELS: Record<string, { title: string; addLabel: string }> = {
+    nStocks: { title: 'NGN Stocks', addLabel: 'Add NGN Stocks' },
+    usdStocks: { title: 'USD Stocks', addLabel: 'Add USD Stocks' },
+    // Backward-compat with older route ids
     'ngn-stocks': { title: 'NGN Stocks', addLabel: 'Add NGN Stocks' },
     'us-stocks': { title: 'US Stocks', addLabel: 'Add US Stocks' },
 };
