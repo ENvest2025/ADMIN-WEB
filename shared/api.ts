@@ -286,8 +286,11 @@ export interface InvestmentNoteModel {
     status: string;
     semi_roi: string;
     annual_roi: string;
+    quarterly_roi?: string;
     semi_roi_days: string;
     annual_roi_days: string;
+    quarterly_roi_days?: string;
+    custody_fee?: string;
     rollover?: number;
     created_at?: string;
     image?: string;
@@ -324,8 +327,11 @@ export interface CreateNotePayload {
     status: string;
     semi_roi: string;
     annual_roi: string;
+    quarterly_roi: string;
     semi_roi_days: string;
     annual_roi_days: string;
+    quarterly_roi_days: string;
+    custody_fee?: string;
 }
 
 export interface UpdateNotePayload extends CreateNotePayload {

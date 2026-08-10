@@ -32,10 +32,13 @@ export function NoteFormModal({ mode, initial, onClose, onSaved }: Readonly<Note
         currency_symbol: initial?.currency_symbol || '₦',
         description: field(initial?.description),
         status: initial?.status || 'Active',
+        quarterly_roi: field(initial?.quarterly_roi),
         semi_roi: field(initial?.semi_roi),
         annual_roi: field(initial?.annual_roi),
+        quarterly_roi_days: field(initial?.quarterly_roi_days),
         semi_roi_days: field(initial?.semi_roi_days),
         annual_roi_days: field(initial?.annual_roi_days),
+        custody_fee: field(initial?.custody_fee),
         rollover: initial?.rollover ?? 0,
     });
     const [saving, setSaving] = useState(false);
@@ -68,10 +71,13 @@ export function NoteFormModal({ mode, initial, onClose, onSaved }: Readonly<Note
                 currency_symbol: form.currency_symbol.trim() || '₦',
                 description: form.description.trim(),
                 status: form.status,
+                quarterly_roi: form.quarterly_roi.trim(),
                 semi_roi: form.semi_roi.trim(),
                 annual_roi: form.annual_roi.trim(),
+                quarterly_roi_days: form.quarterly_roi_days.trim(),
                 semi_roi_days: form.semi_roi_days.trim(),
                 annual_roi_days: form.annual_roi_days.trim(),
+                custody_fee: form.custody_fee.trim(),
             };
 
             const response =
@@ -170,6 +176,17 @@ export function NoteFormModal({ mode, initial, onClose, onSaved }: Readonly<Note
 
                     {/* ROI tiers */}
                     <div className="rounded-xl border border-slate-100 p-4 space-y-4">
+                        <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Quarterly tier</p>
+                        <div className="grid grid-cols-2 gap-4">
+                            <Labeled label="Quarterly ROI (%)">
+                                <input className={inputCls} placeholder="0"
+                                    value={form.quarterly_roi} onChange={(e) => set('quarterly_roi', e.target.value)} />
+                            </Labeled>
+                            <Labeled label="Quarterly ROI days">
+                                <input className={inputCls} placeholder="90"
+                                    value={form.quarterly_roi_days} onChange={(e) => set('quarterly_roi_days', e.target.value)} />
+                            </Labeled>
+                        </div>
                         <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Semi-annual tier</p>
                         <div className="grid grid-cols-2 gap-4">
                             <Labeled label="Semi ROI (%)">

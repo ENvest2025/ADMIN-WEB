@@ -43,6 +43,7 @@ export default function InvestmentNoteDetail() {
 
     const tiers = note
         ? [
+              { tenor: 'Quarterly', days: note.quarterly_roi_days, percentage: note.quarterly_roi },
               { tenor: 'Semi-annually', days: note.semi_roi_days, percentage: note.semi_roi },
               { tenor: 'Annually', days: note.annual_roi_days, percentage: note.annual_roi },
           ]
@@ -135,7 +136,7 @@ export default function InvestmentNoteDetail() {
                     {/* ROI Tiers */}
                     <div>
                         <h2 className="text-base font-bold text-slate-900 mb-3">Investment Tenure Options</h2>
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             {tiers.map((tier) => (
                                 <div key={tier.tenor} className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
                                     <div className="flex items-center justify-between mb-4">
