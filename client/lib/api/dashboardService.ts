@@ -91,6 +91,30 @@ export interface TransactionHistoryResponse {
     };
 }
 
+// Single Transaction Detail (fetchTransactionDetail)
+export interface TransactionDetailData {
+    sent: boolean;
+    direction: string;
+    fees: string;
+    date: string;
+    'transaction ID': string;
+    sender: string;
+    receiver: string;
+    description: string;
+    currency: string;
+    method: string;
+    amount: number | string;
+    status: string;
+    user_email: string;
+}
+
+export interface TransactionDetailResponse {
+    code: number;
+    status: boolean;
+    message: string;
+    data: TransactionDetailData;
+}
+
 // Pagination Interface
 export interface StandardPagination {
     total: number;
@@ -367,6 +391,16 @@ export const dashboardService = {
             return response;
         } catch (error) {
             console.error('Error fetching transaction history:', error);
+            throw error;
+        }
+    },
+
+    fetchTransactionDetail: async (tnx_id: string) => {
+        try {
+            const response = await apiClient<TransactionDetailResponse>('POST', 'fetchTransactionDetail', { tnx_id });
+            return response;
+        } catch (error) {
+            console.error('Error fetching transaction detail:', error);
             throw error;
         }
     },
