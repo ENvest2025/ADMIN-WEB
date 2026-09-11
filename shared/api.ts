@@ -223,6 +223,58 @@ export interface UpdateWithdrawalStatusPayload {
     status: WithdrawalStatusAction | number;
 }
 
+// ─── Transfers-out report (Paystack payouts) ──────────────────────────────────
+export interface TransferOutRow {
+    id: number;
+    reference: string;
+    paystack_transfer_code: string;
+    sender_email: string;
+    recipient_code: string;
+    recipient_name: string;
+    recipient_account_number: string;
+    recipient_bank_code: string;
+    recipient_bank_name: string;
+    recipient_currency: string;
+    amount: number;
+    amount_formatted: string;
+    currency: string;
+    fee_charged: number;
+    source: string;
+    reason: string;
+    status: string;
+    otp_required: number;
+    created_at: string;
+    transferred_at: string | null;
+}
+
+export interface TransfersOutReportParams {
+    draw?: number;
+    start?: number;
+    length?: number;
+    order?: { column: number; dir: 'asc' | 'desc' }[];
+    search?: { value: string; regex: boolean };
+    status?: string;
+    currency?: string;
+    sender_email?: string;
+    date_from?: string;
+    date_to?: string;
+}
+
+export interface TransfersOutReportResponse {
+    code?: number;
+    status: boolean;
+    message: string;
+    data: {
+        rows: TransferOutRow[];
+        recordsTotal: number;
+        recordsFiltered: number;
+        draw: number;
+        start: number;
+        length: number;
+        search: string;
+    };
+}
+
 // ─── Investment Products (getAllProducts) ─────────────────────────────────────
 export interface ProductStock {
     product_code: string;

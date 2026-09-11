@@ -24,6 +24,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { withdrawalsService } from '@/lib/api/withdrawalsService';
 import { WithdrawalRequest } from '@shared/api';
+import { PayoutsReport } from './blocks/PayoutsReport';
 
 const PAGE_SIZE = 10;
 
@@ -194,6 +195,7 @@ function ConfirmModal({
 }
 
 export default function Withdrawals() {
+    const [tab, setTab] = useState<'requests' | 'payouts'>('requests');
     const [withdrawals, setWithdrawals] = useState<WithdrawalRequest[]>([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
@@ -268,6 +270,29 @@ export default function Withdrawals() {
 
     return (
         <div className="space-y-6">
+            {/* Tabs */}
+            <div className="flex gap-1 border-b border-slate-100">
+                {([['requests', 'Withdrawal Requests'], ['payouts', 'Payouts']] as const).map(([key, label]) => (
+                    <button
+                        key={key}
+                        type="button"
+                        onClick={() => setTab(key)}
+                        className={cn(
+                            'px-4 pb-3 text-sm font-medium transition-all border-b-2 -mb-px',
+                            tab === key
+                                ? 'border-[#B8860B] text-[#B8860B]'
+                                : 'border-transparent text-slate-400 hover:text-slate-700'
+                        )}
+                    >
+                        {label}
+                    </button>
+                ))}
+            </div>
+
+            {tab === 'payouts' ? (
+                <PayoutsReport />
+            ) : (
+            <>
             {/* Stats */}
             <div className="flex flex-col sm:flex-row gap-4">
                 <StatCard icon={Wallet} label="Total Requests" value={stats.total.toLocaleString()} accent />
@@ -412,6 +437,8 @@ export default function Withdrawals() {
                     onConfirm={submitAction}
                     onCancel={() => !submitting && setConfirm(null)}
                 />
+            )}
+            </>
             )}
         </div>
     );
