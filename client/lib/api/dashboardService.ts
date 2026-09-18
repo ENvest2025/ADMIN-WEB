@@ -263,6 +263,41 @@ export interface ToggleSuspendResponse {
     message: string;
 }
 
+// Account deletion requests
+export interface DeletionRequest {
+    request_id: string;
+    clientID: string;
+    email: string;
+    reason: string;
+    status: string;
+    requested_at: string;
+    completed_at: string | null;
+    completed_by: string | null;
+}
+
+export interface AccountDeletionRequestsParams {
+    status?: 'pending' | 'completed';
+    page?: number;
+    limit?: number;
+}
+
+export interface AccountDeletionRequestsResponse {
+    code: number;
+    status: boolean;
+    message: string;
+    data: {
+        requests: DeletionRequest[];
+        page: number;
+        limit: number;
+        total: number;
+    };
+}
+
+export interface DeleteUserPayload {
+    id: string;
+    reason?: string;
+}
+
 // KYC Approve / Decline Types
 export interface KycActionPayload {
     id: string;
@@ -451,6 +486,28 @@ export const dashboardService = {
             return response;
         } catch (error) {
             console.error('Error fetching single client:', error);
+            throw error;
+        }
+    },
+
+    // Users who requested account deletion (status: pending | completed).
+    accountDeletionRequests: async (payload: AccountDeletionRequestsParams = {}) => {
+        try {
+            const response = await apiClient<AccountDeletionRequestsResponse>('POST', 'accountDeletionRequests', payload);
+            return response;
+        } catch (error) {
+            console.error('Error fetching deletion requests:', error);
+            throw error;
+        }
+    },
+
+    // Archives + deletes a user by clientID (approves a deletion request).
+    deleteUser: async (payload: DeleteUserPayload) => {
+        try {
+            const response = await apiClient<ToggleSuspendResponse>('POST', 'deleteUser', payload);
+            return response;
+        } catch (error) {
+            console.error('Error deleting user:', error);
             throw error;
         }
     },

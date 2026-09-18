@@ -4,6 +4,7 @@ import { Search, Filter, MoreVertical, ChevronLeft, ChevronRight, Loader2 } from
 import { cn } from '@/lib/utils';
 import { dashboardService, Client } from '@/lib/api/dashboardService';
 import { toast } from 'sonner';
+import { DeletionRequests } from './blocks/DeletionRequests';
 
 type UserStatus = 'Active' | 'Suspended' | 'Deactivated';
 
@@ -137,6 +138,7 @@ function ActionsDropdown({
 
 export default function UserManagement() {
     const navigate = useNavigate();
+    const [tab, setTab] = useState<'users' | 'deletions'>('users');
     const [users, setUsers] = useState<Client[]>([]);
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState('');
@@ -188,27 +190,31 @@ export default function UserManagement() {
         if (!modal.user || !modal.type) return;
         const { type, user } = modal;
 
-        // Delete has no backend endpoint yet — surface that instead of pretending.
-        if (type === 'delete') {
-            toast.info('Deleting accounts is not available yet');
-            setModal({ type: null, user: null });
-            return;
-        }
-
-        // Suspend and un-suspend both hit the same toggle endpoint.
         setSubmitting(true);
         try {
-            const res = await dashboardService.toggleSuspend({ id: user.clientID });
-            if (res.status) {
-                toast.success(
-                    res.message || `User ${type === 'suspend' ? 'suspended' : 'un-suspended'}`
-                );
-                fetchUsers(currentPage);
+            if (type === 'delete') {
+                const res = await dashboardService.deleteUser({
+                    id: user.clientID,
+                    reason: 'Deleted by admin',
+                });
+                if (res.status) {
+                    toast.success(res.message || 'User archived and deleted');
+                    fetchUsers(currentPage);
+                } else {
+                    toast.error(res.message || 'Failed to delete user');
+                }
             } else {
-                toast.error(res.message || 'Action failed');
+                // Suspend and un-suspend both hit the same toggle endpoint.
+                const res = await dashboardService.toggleSuspend({ id: user.clientID });
+                if (res.status) {
+                    toast.success(res.message || `User ${type === 'suspend' ? 'suspended' : 'un-suspended'}`);
+                    fetchUsers(currentPage);
+                } else {
+                    toast.error(res.message || 'Action failed');
+                }
             }
         } catch (err: any) {
-            console.error('toggleSuspend error:', err);
+            console.error('user action error:', err);
             toast.error(err?.response?.data?.message || 'Action failed');
         } finally {
             setSubmitting(false);
@@ -231,6 +237,27 @@ export default function UserManagement() {
 
     return (
         <div className="space-y-6">
+            {/* Tabs */}
+            <div className="flex gap-1 border-b border-slate-100">
+                {([['users', 'All users'], ['deletions', 'Deletion requests']] as const).map(([key, label]) => (
+                    <button
+                        key={key}
+                        type="button"
+                        onClick={() => setTab(key)}
+                        className={cn(
+                            'px-4 pb-3 text-sm font-medium transition-all border-b-2 -mb-px',
+                            tab === key ? 'border-[#B8860B] text-[#B8860B]' : 'border-transparent text-slate-400 hover:text-slate-700'
+                        )}
+                    >
+                        {label}
+                    </button>
+                ))}
+            </div>
+
+            {tab === 'deletions' ? (
+                <DeletionRequests />
+            ) : (
+            <>
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -361,6 +388,8 @@ export default function UserManagement() {
                     onConfirm={handleConfirm}
                     onCancel={() => !submitting && setModal({ type: null, user: null })}
                 />
+            )}
+            </>
             )}
         </div>
     );
