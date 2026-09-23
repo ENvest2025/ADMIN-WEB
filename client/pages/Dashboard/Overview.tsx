@@ -5,9 +5,10 @@ import { RecentKYC } from '@/pages/Dashboard/blocks/RecentKYC';
 import { useDashboardStats } from '@/hooks/useDashboard';
 
 export default function Overview() {
-    // Initial render call with default payload
+    // Default to the current year so the registration graph tracks live data
+    // (a hardcoded past year returns an empty graph once the year rolls over).
     const { data: response, isLoading } = useDashboardStats({
-        year: 2025,
+        year: new Date().getFullYear(),
         month: "",
         day: ""
     });
