@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delete Your Data — EnVest</title>
+  <meta name="description" content="How to delete your data or account in the EnVest app." />
+  <style>
+    :root {
+      --ink: #0A0E1A;
+      --gold: #B8860B;
+      --gold-dark: #9a7009;
+      --bg: #F8FAFC;
+      --card: #ffffff;
+      --border: #e2e8f0;
+      --text: #1e293b;
+      --muted: #64748b;
+      --faint: #94a3b8;
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Header */
+    header {
+      background: var(--ink);
+      padding: 20px 24px;
+    }
+    .brand {
+      max-width: 760px;
+      margin: 0 auto;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      color: var(--gold);
+    }
+
+    /* Layout */
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 32px 16px 64px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    }
+    @media (min-width: 640px) {
+      .card { padding: 40px; }
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin: 0 0 8px;
+      color: var(--ink);
+    }
+    .lede { color: var(--muted); margin: 0 0 4px; }
+    .updated { color: var(--faint); font-size: 13px; margin: 0; }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 36px 0 14px;
+      color: var(--ink);
+    }
+    p { margin: 0 0 14px; }
+
+    /* Steps */
+    ol.steps { list-style: none; counter-reset: step; margin: 0; padding: 0; }
+    ol.steps li {
+      counter-increment: step;
+      position: relative;
+      padding: 12px 0 12px 52px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    ol.steps li:last-child { border-bottom: none; }
+    ol.steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0; top: 10px;
+      width: 34px; height: 34px;
+      background: rgba(184, 134, 11, 0.1);
+      color: var(--gold);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 14px;
+    }
+
+    /* Callout */
+    .note {
+      background: rgba(184, 134, 11, 0.07);
+      border: 1px solid rgba(184, 134, 11, 0.25);
+      border-radius: 12px;
+      padding: 16px 18px;
+      color: #7a5a08;
+      margin: 20px 0 0;
+      font-size: 15px;
+    }
+
+    /* Two columns */
+    .cols { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 8px; }
+    @media (min-width: 640px) { .cols { grid-template-columns: 1fr 1fr; } }
+    .panel {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+    }
+    .panel h3 { margin: 0 0 12px; font-size: 15px; font-weight: 700; }
+    .panel.del h3 { color: #dc2626; }
+    .panel.keep h3 { color: #059669; }
+    .panel ul { margin: 0; padding-left: 18px; color: var(--text); }
+    .panel ul li { margin-bottom: 7px; }
+
+    .contact { margin-top: 8px; }
+    .contact a { color: var(--gold); font-weight: 600; text-decoration: none; }
+    .contact a:hover { text-decoration: underline; }
+
+    /* Request form */
+    .request-form { display: flex; flex-wrap: wrap; gap: 12px; margin: 10px 0 4px; }
+    .request-form input {
+      flex: 1 1 240px;
+      min-width: 0;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 15px;
+      color: var(--text);
+      background: #fff;
+    }
+    .request-form input:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.15);
+    }
+    .request-form button {
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 22px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .request-form button:hover { background: var(--gold-dark); }
+    .form-msg { font-size: 14px; margin: 8px 0 0; min-height: 20px; }
+    .form-msg.error { color: #dc2626; }
+    .form-msg.success { color: #059669; }
+
+    footer {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 16px 48px;
+      color: var(--faint);
+      font-size: 13px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">EnVest</div>
+  </header>
+
+  <main>
+    <div class="card">
+      <h1>Delete Your Data</h1>
+      <p class="lede">How to remove your data or close your account in the EnVest app.</p>
+      <p class="updated">Last updated: September 22, 2026</p>
+
+      <h2>How to request deletion</h2>
+      <p>You can ask us to delete your data and account directly from the app:</p>
+      <ol class="steps">
+        <li>Open the EnVest app on your device.</li>
+        <li>Tap your profile picture to open <strong>Settings</strong>.</li>
+        <li>Go to the <strong>Account &amp; Privacy</strong> section.</li>
+        <li>Select <strong>Delete My Account</strong>.</li>
+        <li>Tell us the reason (optional) and review the confirmation details.</li>
+        <li>Tap <strong>Confirm</strong> to submit your request.</li>
+        <li>Our team reviews and processes your request, and your account is closed.</li>
+      </ol>
+
+      <div class="note">
+        Deleting your account is permanent. Once it is processed, you will no longer be able to
+        sign in, and you will need to create a brand-new account to use EnVest again.
+      </div>
+
+      <h2>What gets deleted</h2>
+      <p>When your request is approved, we remove your active account, including:</p>
+      <div class="cols">
+        <div class="panel del">
+          <h3>Removed</h3>
+          <ul>
+            <li>Your account and sign-in access</li>
+            <li>Your profile and personal details</li>
+            <li>Your saved preferences and app settings</li>
+            <li>Your wallet and portfolio dashboard access</li>
+          </ul>
+        </div>
+        <div class="panel keep">
+          <h3>Kept for compliance</h3>
+          <ul>
+            <li>Transaction and payment records</li>
+            <li>Investment and portfolio records</li>
+            <li>Identity (KYC) records and documents</li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top:16px;">
+        As a financial service, EnVest is required by law to keep certain records for a period of time
+        for legal, regulatory, tax, and fraud-prevention purposes. These records are retained only as
+        the law requires and are not used to market to you.
+      </p>
+
+      <h2>How long it takes</h2>
+      <p>
+        Deletion requests are usually processed within a few business days. Once your account is closed,
+        it can no longer be used to sign in or access EnVest services.
+      </p>
+
+      <h2>A note on re-registration</h2>
+      <p>
+        For your security, the email address and phone number linked to a deleted account are reserved
+        and cannot be reused to open a new account.
+      </p>
+
+      <h2>Submit a deletion request</h2>
+      <p>
+        Enter the email address on your EnVest account and we'll start the deletion process
+        for you.
+      </p>
+      <form class="request-form" id="deleteForm" novalidate>
+        <input
+          type="email"
+          id="deleteEmail"
+          name="email"
+          placeholder="you@example.com"
+          autocomplete="email"
+          aria-label="Account email address"
+          required
+        />
+        <button type="submit">Submit request</button>
+      </form>
+      <p class="form-msg" id="formMsg" role="status" aria-live="polite"></p>
+
+      <h2>Need help?</h2>
+      <p class="contact">
+        If you have any questions about deleting your data, or you would like us to action a request on
+        your behalf, contact our support team at
+        <a href="mailto:support@envest.live">support@envest.live</a>.
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2026 EnVest. All rights reserved.
+  </footer>
+
+  <script>
+    (function () {
+      var form = document.getElementById('deleteForm');
+      var email = document.getElementById('deleteEmail');
+      var msg = document.getElementById('formMsg');
+      if (!form) return;
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var value = (email.value || '').trim();
+        var valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
+        if (!valid) {
+          msg.textContent = 'Please enter a valid email address.';
+          msg.className = 'form-msg error';
+          email.focus();
+          return;
+        }
+
+        var subject = encodeURIComponent('Account deletion request');
+        var body = encodeURIComponent('Please delete the EnVest account and data for: ' + value);
+        window.location.href = 'mailto:support@envest.live?subject=' + subject + '&body=' + body;
+
+        msg.textContent = 'Opening your email app to send your request to support@envest.live…';
+        msg.className = 'form-msg success';
+        form.reset();
+      });
+    })();
+  </script>
+</body>
+</html>

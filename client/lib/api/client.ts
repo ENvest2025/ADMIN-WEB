@@ -81,6 +81,10 @@ export const apiClient = async <T = any>(
     baseURL?: string
 ): Promise<T> => {
     try {
+        // For multipart uploads (FormData) drop the default JSON content-type so
+        // the browser sets `multipart/form-data` with the correct boundary.
+        const isFormData = typeof FormData !== 'undefined' && payload instanceof FormData;
+
         const response = await instance.request<T>({
             method,
             url: endpoint,
@@ -88,6 +92,7 @@ export const apiClient = async <T = any>(
             // Allow a per-request base override (e.g. the /api/v1 host that
             // serves getAllProducts, which lives outside the admin base).
             ...(baseURL ? { baseURL } : {}),
+            ...(isFormData ? { headers: { 'Content-Type': undefined } } : {}),
         });
         return response as T;
     } catch (error) {

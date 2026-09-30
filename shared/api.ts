@@ -275,6 +275,51 @@ export interface TransfersOutReportResponse {
     };
 }
 
+// ─── In-App Ads ───────────────────────────────────────────────────────────────
+// Numeric fields are serialized as strings by the backend.
+export interface InAppAd {
+    id: string;
+    title: string;
+    media_path: string;
+    media_type: 'image' | 'gif' | 'video' | string;
+    mime_type: string;
+    size_bytes: string;
+    width: string;
+    height: string;
+    duration_seconds: string | null;
+    is_active: string;
+    sort_order: string;
+    created_by: string;
+    updated_by: string;
+    created_at: string;
+    updated_at: string;
+    url: string;
+}
+
+export interface InAppAdsReportParams {
+    page?: number;
+    limit?: number;
+}
+
+export interface InAppAdsReportResponse {
+    code: number;
+    status: boolean;
+    message: string;
+    data: {
+        items: InAppAd[];
+        total: number;
+        page: number;
+        limit: number;
+    };
+}
+
+export interface EditInAppAdPayload {
+    id: number | string;
+    title?: string;
+    is_active?: number;
+    sort_order?: number;
+}
+
 // ─── Investment Products (getAllProducts) ─────────────────────────────────────
 export interface ProductStock {
     product_code: string;

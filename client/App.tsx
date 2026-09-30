@@ -38,6 +38,7 @@ import InvestmentBreakdown from "./pages/Dashboard/InvestmentBreakdown";
 import PortfolioTransactionDetail from "./pages/Dashboard/PortfolioTransactionDetail";
 import InvestmentNoteBill from "./pages/Dashboard/InvestmentNoteBill";
 import Learn from "./pages/Dashboard/Learn";
+import InAppAds from "./pages/Dashboard/InAppAds";
 import Support from "./pages/Dashboard/Support";
 import Settings from "./pages/Dashboard/Settings";
 import UserInvestments from "@/pages/Dashboard/UserInvestments";
@@ -108,6 +109,7 @@ const App = () => (
 
             {/* Administration */}
             <Route path="/dashboard/learn" element={<Learn />} />
+            <Route path="/dashboard/in-app-ads" element={<InAppAds />} />
             <Route path="/dashboard/support" element={<Support />} />
             <Route path="/dashboard/settings" element={<Settings />} />
             <Route path="/dashboard/user-investments" element={<UserInvestments />} />

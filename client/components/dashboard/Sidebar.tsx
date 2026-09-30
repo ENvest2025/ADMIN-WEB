@@ -12,6 +12,7 @@ import {
     Settings,
     LogOut,
     Inbox,
+    Megaphone,
     X
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -40,6 +41,7 @@ const menuItems = [
     {
         group: 'Administration', items: [
             { name: 'Learn', icon: BookOpen, path: '/dashboard/learn' },
+            { name: 'In App Ads', icon: Megaphone, path: '/dashboard/in-app-ads' },
             { name: 'Support', icon: HelpCircle, path: '/dashboard/support' },
             { name: 'Settings', icon: Settings, path: '/dashboard/settings' },
         ]
