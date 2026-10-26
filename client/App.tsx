@@ -38,12 +38,15 @@ import InvestmentBreakdown from "./pages/Dashboard/InvestmentBreakdown";
 import PortfolioTransactionDetail from "./pages/Dashboard/PortfolioTransactionDetail";
 import InvestmentNoteBill from "./pages/Dashboard/InvestmentNoteBill";
 import Learn from "./pages/Dashboard/Learn";
+// import Blog from "./pages/Dashboard/Blog"; // DISABLED — old newsletter-based "Learn", kept as Blog
 import InAppAds from "./pages/Dashboard/InAppAds";
 import Support from "./pages/Dashboard/Support";
 import Settings from "./pages/Dashboard/Settings";
 import UserInvestments from "@/pages/Dashboard/UserInvestments";
 import UserInvestmentDetail from "@/pages/Dashboard/UserInvestmentDetail";
 import InvestmentRequests from "@/pages/Dashboard/InvestmentRequests";
+import NgxExecutionReports from "@/pages/Dashboard/NgxExecutionReports";
+import NgxFixLogs from "@/pages/Dashboard/NgxFixLogs";
 
 const queryClient = new QueryClient();
 
@@ -109,12 +112,15 @@ const App = () => (
 
             {/* Administration */}
             <Route path="/dashboard/learn" element={<Learn />} />
+            {/* <Route path="/dashboard/blog" element={<Blog />} /> */} {/* DISABLED — old blog/newsletter feature */}
             <Route path="/dashboard/in-app-ads" element={<InAppAds />} />
             <Route path="/dashboard/support" element={<Support />} />
             <Route path="/dashboard/settings" element={<Settings />} />
             <Route path="/dashboard/user-investments" element={<UserInvestments />} />
             <Route path="/dashboard/user-investments/:investmentId" element={<UserInvestmentDetail />} />
             <Route path="/dashboard/requests" element={<InvestmentRequests />} />
+            <Route path="/dashboard/ngx-reports" element={<NgxExecutionReports />} />
+            <Route path="/dashboard/ngx-fix-logs" element={<NgxFixLogs />} />
           </Route>
 
           {/* App Routes */}

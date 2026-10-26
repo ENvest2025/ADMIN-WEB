@@ -4,6 +4,7 @@ import {
     Users,
     ArrowRightLeft,
     Wallet,
+    CandlestickChart,
     Briefcase,
     TrendingUp,
     PieChart,
@@ -13,6 +14,7 @@ import {
     LogOut,
     Inbox,
     Megaphone,
+    Terminal,
     X
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -35,12 +37,15 @@ const menuItems = [
             { name: 'Investment Products', icon: Briefcase, path: '/dashboard/investments', count: 10 },
             { name: 'Investments', icon: TrendingUp, path: '/dashboard/user-investments' },
             { name: 'Roll Over / Liquidation', icon: Inbox, path: '/dashboard/requests' },
+            { name: 'NGX Reports', icon: CandlestickChart, path: '/dashboard/ngx-reports' },
+            { name: 'NGX FIX Logs', icon: Terminal, path: '/dashboard/ngx-fix-logs' },
             { name: 'Portfolio management', icon: PieChart, path: '/dashboard/portfolio' },
         ]
     },
     {
         group: 'Administration', items: [
             { name: 'Learn', icon: BookOpen, path: '/dashboard/learn' },
+            // { name: 'Blog', icon: BookOpen, path: '/dashboard/blog' }, // DISABLED — old blog/newsletter feature
             { name: 'In App Ads', icon: Megaphone, path: '/dashboard/in-app-ads' },
             { name: 'Support', icon: HelpCircle, path: '/dashboard/support' },
             { name: 'Settings', icon: Settings, path: '/dashboard/settings' },

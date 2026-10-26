@@ -320,6 +320,155 @@ export interface EditInAppAdPayload {
     sort_order?: number;
 }
 
+// ─── Learning (new Learn) ─────────────────────────────────────────────────────
+export interface LearningEntry {
+    id: string;
+    topic: string;
+    details: string;
+    created: string;
+    edited: string;
+    status: string; // posted | pending
+}
+
+export interface FetchLearningParams {
+    draw?: number;
+    start?: number;
+    length?: number;
+    search?: { value: string; regex: boolean };
+    status?: 'posted' | 'pending' | '';
+    date_from?: string;
+    date_to?: string;
+    order?: { column: number; dir: 'asc' | 'desc' }[];
+}
+
+// fetchLearning returns DataTables fields at the TOP level (not nested in data).
+export interface FetchLearningResponse {
+    code: number;
+    status: boolean;
+    message: string;
+    draw: number;
+    recordsTotal: number;
+    recordsFiltered: number;
+    data: LearningEntry[];
+    error?: string;
+}
+
+export interface EditLearningPayload {
+    id: number | string;
+    topic?: string;
+    details?: string;
+    status?: 'posted' | 'pending';
+}
+
+export interface CreateLearningPayload {
+    topic: string;
+    details: string;
+    status?: 'posted' | 'pending';
+}
+
+// ─── NGX Execution Reports ────────────────────────────────────────────────────
+export interface NgxOrderEvent {
+    [key: string]: unknown;
+}
+
+export interface NgxOrder {
+    transaction_id: string;
+    client_email?: string;
+    product_code?: string;
+    side?: string;
+    order_quantity?: number | string;
+    price?: number | string;
+    filled_quantity?: number | string;
+    executed_total?: number | string;
+    status?: string;
+    exchange_order_id?: string;
+    created_at?: string;
+    updated_at?: string;
+    can_cancel?: boolean;
+    // Saved request, latest response and event history (shapes vary by order).
+    request?: unknown;
+    response?: unknown;
+    events?: NgxOrderEvent[];
+    [key: string]: unknown;
+}
+
+export interface NgxExecutionReportsParams {
+    limit?: number;
+    offset?: number;
+    status?: string;
+}
+
+export interface NgxExecutionReportsResponse {
+    code?: number;
+    status: boolean;
+    message: string;
+    data: {
+        orders: NgxOrder[];
+        total?: number;
+        limit?: number;
+        offset?: number;
+    };
+}
+
+export interface NgxActionPayload {
+    action: 'check' | 'cancel';
+    transaction_id: string;
+}
+
+// ─── NGX FIX Protocol Logs ────────────────────────────────────────────────────
+export interface FixTagField {
+    tag: string;
+    name: string;
+    value: string;
+    meaning?: string;
+}
+
+export interface FixMessage {
+    direction: 'inbound' | 'outbound' | string;
+    raw: string;
+    fields: FixTagField[];
+}
+
+export interface NgxFixLogEntry {
+    timestamp: string;
+    level: string;
+    event: string;
+    summary: string;
+    file?: string;
+    raw: string;
+    fields?: Record<string, string>;
+    fix_messages?: FixMessage[];
+}
+
+export interface NgxFixLogsFilters {
+    date?: string | null;
+    level?: string | null;
+    event?: string | null;
+    search?: string | null;
+}
+
+export interface NgxFixLogsParams {
+    limit?: number;
+    offset?: number;
+    date?: string;
+    level?: string;
+    event?: string;
+    search?: string;
+}
+
+export interface NgxFixLogsResponse {
+    code?: number;
+    status: boolean;
+    message: string;
+    data: {
+        entries: NgxFixLogEntry[];
+        total: number;
+        limit: number;
+        offset: number;
+        filters?: NgxFixLogsFilters;
+    };
+}
+
 // ─── Investment Products (getAllProducts) ─────────────────────────────────────
 export interface ProductStock {
     product_code: string;
