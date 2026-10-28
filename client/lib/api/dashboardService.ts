@@ -74,22 +74,30 @@ export interface Pagination {
     last_page: number;
 }
 
+export interface TransactionAggregates {
+    inflow: number;
+    outflow: number;
+}
+
 export interface TransactionHistoryResponse {
     code: number;
     status: boolean;
     message: string;
     data: {
         transactions: Transaction[];
+        aggregatesNGN?: TransactionAggregates;
+        aggregatesUSD?: TransactionAggregates;
         pagination: Pagination;
         filters_applied: {
-            email: string;
-            start_date: string;
-            end_date: string;
-            status: string;
-            tnx_type: string;
+            email: string | null;
+            start_date: string | null;
+            end_date: string | null;
+            status: string | null;
+            tnx_type: string | null;
         };
     };
 }
+
 
 // Single Transaction Detail (fetchTransactionDetail)
 export interface TransactionDetailData {

@@ -65,6 +65,11 @@ export interface ChangeInvestmentStatusRequest {
     newstatus: string;
 }
 
+export interface TransactionAggregates {
+    inflow: number;
+    outflow: number;
+}
+
 export interface GenericResponse {
     code: number;
     status: boolean;

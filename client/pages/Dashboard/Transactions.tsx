@@ -3,10 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Filter, Eye, TrendingUp, TrendingDown, ArrowLeftRight, BarChart3, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { cn } from '@/lib/utils';
-import { dashboardService, Transaction as ApiTransaction } from '@/lib/api/dashboardService';
+import { dashboardService, Transaction as ApiTransaction, TransactionAggregates } from '@/lib/api/dashboardService';
 import { toast } from 'sonner';
-
-
 
 const TYPE_STYLES: Record<string, string> = {
     'Deposit': 'text-emerald-500',
@@ -46,7 +44,7 @@ function StatCard({ icon: Icon, label, value, accent }: { icon: any; label: stri
     );
 }
 
-const CustomTooltip = ({ active, payload, label }: any) => {
+const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
         return (
             <div className="bg-yellow-500 text-white px-3 py-1.5 rounded-lg text-sm font-bold shadow-lg">
@@ -62,6 +60,7 @@ export default function Transactions() {
     const [timePeriod, setTimePeriod] = useState<'Monthly' | 'Yearly'>('Monthly');
     const [currentPage, setCurrentPage] = useState(1);
     const [transactions, setTransactions] = useState<ApiTransaction[]>([]);
+    const [aggregatesNGN, setAggregatesNGN] = useState<TransactionAggregates | null>(null);
     const [loading, setLoading] = useState(true);
     const [totalPages, setTotalPages] = useState(1);
     const [totalTransactions, setTotalTransactions] = useState(0);
@@ -74,6 +73,9 @@ export default function Transactions() {
                 setTransactions(response.data.transactions);
                 setTotalPages(response.data.pagination.last_page);
                 setTotalTransactions(response.data.pagination.total);
+                if (response.data.aggregatesNGN) {
+                    setAggregatesNGN(response.data.aggregatesNGN);
+                }
             }
         } catch (error) {
             console.error('Error fetching transactions:', error);
@@ -111,13 +113,29 @@ export default function Transactions() {
     }, [transactions]);
 
     const stats = useMemo(() => {
+        if (aggregatesNGN) {
+            const inflow = typeof aggregatesNGN.inflow === 'number'
+                ? aggregatesNGN.inflow
+                : parseFloat(String(aggregatesNGN.inflow)) || 0;
+            const outflow = typeof aggregatesNGN.outflow === 'number'
+                ? aggregatesNGN.outflow
+                : parseFloat(String(aggregatesNGN.outflow)) || 0;
+            return {
+                inflow,
+                outflow,
+                balance: inflow - outflow,
+                volume: totalTransactions,
+            };
+        }
+
         let inflow = 0;
         let outflow = 0;
         transactions.forEach(tx => {
             const amount = parseFloat(tx.amount.replace(/[^0-9.]/g, '')) || 0;
-            if (tx.tnx_type.toLowerCase() === 'deposit') {
+            const type = (tx.tnx_type || '').toLowerCase();
+            if (type === 'deposit' || type === 'credit') {
                 inflow += amount;
-            } else if (tx.tnx_type.toLowerCase() === 'withdrawal') {
+            } else if (type === 'withdrawal' || type === 'debit') {
                 outflow += amount;
             }
         });
@@ -125,9 +143,10 @@ export default function Transactions() {
             inflow,
             outflow,
             balance: inflow - outflow,
-            volume: totalTransactions
+            volume: totalTransactions,
         };
-    }, [transactions, totalTransactions]);
+    }, [aggregatesNGN, transactions, totalTransactions]);
+
 
     const getPageNumbers = () => {
         const pages = [];
