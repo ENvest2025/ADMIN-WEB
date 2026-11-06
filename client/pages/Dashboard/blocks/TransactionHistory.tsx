@@ -1,10 +1,12 @@
 import { Card } from '@/components/ui/card';
 import { ArrowUp, ArrowDown, ChevronRight, Loader2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { useTransactionHistory } from '@/hooks/useDashboard';
 import { Transaction } from '@/lib/api/dashboardService';
 
 export function TransactionHistory() {
+    const navigate = useNavigate();
     const { data: response, isLoading, isError } = useTransactionHistory({
         limit: 5,
         page: 1,
@@ -36,7 +38,11 @@ export function TransactionHistory() {
         <Card className="p-4 sm:p-6 border-slate-100 shadow-sm rounded-3xl bg-white flex flex-col">
             <div className="flex items-center justify-between gap-2 mb-6">
                 <h3 className="text-xl font-bold text-slate-900">Transaction History</h3>
-                <button className="text-[#B8860B] text-sm font-bold flex items-center gap-1 hover:underline whitespace-nowrap shrink-0">
+                <button
+                    type="button"
+                    onClick={() => navigate('/dashboard/transactions')}
+                    className="text-[#B8860B] text-sm font-bold flex items-center gap-1 hover:underline whitespace-nowrap shrink-0"
+                >
                     View all <ChevronRight size={16} />
                 </button>
             </div>
